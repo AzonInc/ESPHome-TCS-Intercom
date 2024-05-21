@@ -63,8 +63,9 @@ namespace esphome
 
             uint32_t secure_boot_enabled = 0;
             esp_efuse_read_field_blob(ESP_EFUSE_SECURE_BOOT_EN, &secure_boot_enabled, 1);
+            
             ESP_LOGCONFIG("Secure Boot Enabled:");
-            ESP_LOGCONFIG(TAG, secure_boot_enabled ? "Yes" : "No");
+            ESP_LOGCONFIG(TAG, secure_boot_enabled);
 
             /*har h[10];
             for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
