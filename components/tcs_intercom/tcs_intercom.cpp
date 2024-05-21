@@ -1,5 +1,6 @@
 #include "tcs_intercom.h"
 #include "soc/efuse_reg.h"
+#include "esp_efuse.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
 #include "esphome/components/api/custom_api_device.h"

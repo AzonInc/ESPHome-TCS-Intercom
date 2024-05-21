@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include "soc/efuse_reg.h"
+#include "esp_efuse.h"
 #include "esphome/core/component.h"
 #include "esphome/core/hal.h"
 #include "esphome/core/helpers.h"
