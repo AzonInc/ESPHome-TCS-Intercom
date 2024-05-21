@@ -82,7 +82,7 @@ namespace esphome
             ver[1] = value >> 8;
             ver[2] = value >> 16;
 
-            ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[0], ver[0]);
+            ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[1], ver[2]);
 
             /*har h[10];
             for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
