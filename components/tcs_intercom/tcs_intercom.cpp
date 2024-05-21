@@ -45,11 +45,11 @@ namespace esphome
             {
                 ESP_LOGI(TAG, "PCB Version detected");
 
-                const gpio_num_t rx_pin = static_cast<gpio_num_t>(22);
+                /*const gpio_num_t rx_pin = static_cast<gpio_num_t>(22);
                 const gpio_num_t tx_pin = static_cast<gpio_num_t>(23);
 
                 this->rx_pin_ = rx_pin;
-                this->tx_pin_ = tx_pin;
+                this->tx_pin_ = tx_pin;*/
             }
             #endif
 
