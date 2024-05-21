@@ -65,7 +65,7 @@ namespace esphome
             char h[10];
             for(int32_t block3Address=0; block3Address<=4; block3Address+=1)
             {
-                uint32_t block = esp_efuse_read_reg(3, block3Address)
+                uint32_t block = esp_efuse_read_reg(3, block3Address);
                 sprintf(h, "%08X ", block);
 
                 ESP_LOGCONFIG(TAG, h);
