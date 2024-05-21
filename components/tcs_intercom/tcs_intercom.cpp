@@ -4,6 +4,7 @@
 #include "esphome/components/api/custom_api_device.h"
 #include "esphome/core/application.h"
 #include <Arduino.h>
+#include "efuse_reg.h"
 #include "esp_efuse.h"
 #include "esp_efuse_table.h"
 
@@ -61,11 +62,16 @@ namespace esphome
 
             LOG_TEXT_SENSOR(TAG, "Bus Command", this->bus_command_);
 
-            uint32_t secure_boot_enabled = 0;
-            esp_efuse_read_field_blob(ESP_EFUSE_SECURE_BOOT_EN, &secure_boot_enabled, 1);
+
+
+
+            uint32_t field1_1 = 0;
+            esp_efuse_read_field_blob(ESP_EFUSE_USER_DATA, &field1_1, 8);
+
+
             
-            ESP_LOGW(TAG, "Secure Boot Enabled:");
-            ESP_LOGW(TAG, secure_boot_enabled ? "Si" : "No");
+            ESP_LOGW(TAG, "User Data:");
+            ESP_LOGW(TAG, field1_1);
 
             /*har h[10];
             for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
