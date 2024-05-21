@@ -27,6 +27,10 @@ namespace esphome
 
 
 
+            
+            #if defined(ESP32)
+            ESP_LOGI(TAG, "ESP32 detected");
+
             // Doorman Hardware Revision
             uint8_t ver[3];
             uint32_t value;
@@ -35,15 +39,19 @@ namespace esphome
             ver[1] = value >> 8;
             ver[2] = value >> 16;
 
+            ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[1], ver[2]);
+
             if(ver[0] > 0)
             {
+                ESP_LOGI(TAG, "PCB Version detected");
+
                 const gpio_num_t rx_pin = static_cast<gpio_num_t>(22);
                 const gpio_num_t tx_pin = static_cast<gpio_num_t>(23);
 
                 this->rx_pin_ = rx_pin;
                 this->tx_pin_ = tx_pin;
             }
-            
+            #endif
 
 
             this->rx_pin_->setup();
@@ -83,18 +91,6 @@ namespace esphome
             }
 
             LOG_TEXT_SENSOR(TAG, "Bus Command", this->bus_command_);
-
-
-
-
-            uint8_t ver[3];
-            uint32_t value;
-            esp_efuse_read_block(EFUSE_BLK3, &value, 0, 24);
-            ver[0] = value >> 0;
-            ver[1] = value >> 8;
-            ver[2] = value >> 16;
-
-            ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[1], ver[2]);
         }
 
         void TCSComponent::loop()
