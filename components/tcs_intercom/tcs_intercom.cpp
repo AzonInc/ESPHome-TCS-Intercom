@@ -37,11 +37,11 @@ namespace esphome
 
             if(ver[0] > 0)
             {
-                this->rx_pin_.set_pin(gpio_num_t(22));
-                this->rx_pin_.set_pin(gpio_num_t(23));
+                this->rx_pin_->set_pin(gpio_num_t(22));
+                this->rx_pin_->set_pin(gpio_num_t(23));
             }
             
-            
+
 
             this->rx_pin_->setup();
             this->tx_pin_->setup();
