@@ -1,11 +1,11 @@
 #include "tcs_intercom.h"
-#include "soc/efuse_reg.h"
-#include "esp_efuse.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
 #include "esphome/components/api/custom_api_device.h"
 #include "esphome/core/application.h"
 #include <Arduino.h>
+#include "esp_efuse.h"
+#include "esp_efuse_table.h"
 
 namespace esphome
 {
@@ -61,14 +61,13 @@ namespace esphome
 
             LOG_TEXT_SENSOR(TAG, "Bus Command", this->bus_command_);
 
+            uint32_t chip_version = esp_efuse_read_field_blob(ESP_EFUSE_CHIP_VER_DIS_APP_CPU, &chip_version, 8);
+            ESP_LOGCONFIG(TAG, "Chip version: ");
+            ESP_LOGCONFIG(TAG, chip_version);
 
-
-            for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
-            {
-                uint32_t block = REG_GET_FIELD(block3Address, EFUSE_BLK3_DOUT0);
-                sprintf(h, "%08X ", block);
-                ESP_LOGCONFIG(TAG, h);
-            }
+            uint32_t chip_package = esp_efuse_read_field_blob(ESP_EFUSE_CHIP_PACKAGE, &chip_package, 3);
+            ESP_LOGCONFIG(TAG, "Chip package: ");
+            ESP_LOGCONFIG(TAG, chip_package);
         }
 
         void TCSComponent::loop()
