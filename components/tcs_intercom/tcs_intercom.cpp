@@ -4,7 +4,8 @@
 #include "esphome/components/api/custom_api_device.h"
 #include "esphome/core/application.h"
 #include <Arduino.h>
-#include "soc/efuse_reg.h"
+
+//#include "soc/efuse_reg.h"
 #include "esp_efuse.h"
 #include "esp_efuse_table.h"
 
@@ -23,6 +24,24 @@ namespace esphome
         void TCSComponent::setup()
         {
             ESP_LOGCONFIG(TAG, "Setting up TCS Intercom...");
+
+
+
+            // Doorman Hardware Revision
+            uint8_t ver[3];
+            uint32_t value;
+            esp_efuse_read_block(EFUSE_BLK3, &value, 0, 24);
+            ver[0] = value >> 0;
+            ver[1] = value >> 8;
+            ver[2] = value >> 16;
+
+            if(ver[0] > 0)
+            {
+                this->rx_pin_.set_pin(gpio_num_t(22));
+                this->rx_pin_.set_pin(gpio_num_t(23));
+            }
+            
+            
 
             this->rx_pin_->setup();
             this->tx_pin_->setup();
@@ -64,18 +83,8 @@ namespace esphome
 
 
 
-            /*char h[32];
-            uint32_t field1_1 = 0;
-            esp_efuse_read_field_blob(ESP_EFUSE_USER_DATA, &field1_1, 8);
-            sprintf(h, "%08X ", field1_1);
-
-            ESP_LOGW(TAG, "User Data:");
-            ESP_LOGW(TAG, h);
-            ESP_LOG(TAG, h);*/
-
 
             uint8_t ver[3];
-
             uint32_t value;
             esp_efuse_read_block(EFUSE_BLK3, &value, 0, 24);
             ver[0] = value >> 0;
@@ -83,14 +92,6 @@ namespace esphome
             ver[2] = value >> 16;
 
             ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[1], ver[2]);
-
-            /*har h[10];
-            for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
-            {
-                uint32_t block = REG_GET_FIELD(block3Address, EFUSE_BLK3_DOUT0);
-                sprintf(h, "%08X ", block);
-                ESP_LOGCONFIG(TAG, h);
-            }*/
         }
 
         void TCSComponent::loop()
