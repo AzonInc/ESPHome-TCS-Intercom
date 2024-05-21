@@ -77,7 +77,7 @@ namespace esphome
             uint8_t ver[3];
 
             uint32_t value;
-            esp_efuse_read_block(ESP_EFUSE_BLK3, &value);
+            esp_efuse_read_block(EFUSE_BLK3, &value);
             ver[0] = value >> 0;
             ver[1] = value >> 8;
             ver[2] = value >> 16;
