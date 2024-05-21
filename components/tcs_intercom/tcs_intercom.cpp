@@ -37,11 +37,11 @@ namespace esphome
 
             if(ver[0] > 0)
             {
-                const gpio_num_t scl_pin = static_cast<gpio_num_t>(22);
-                const gpio_num_t sda_pin = static_cast<gpio_num_t>(23);
+                const gpio_num_t rx_pin = static_cast<gpio_num_t>(22);
+                const gpio_num_t tx_pin = static_cast<gpio_num_t>(23);
 
-                this->rx_pin_->set_pin(scl_pin);
-                this->rx_pin_->set_pin(sda_pin);
+                this->rx_pin_ = rx_pin;
+                this->tx_pin_ = tx_pin;
             }
             
 
