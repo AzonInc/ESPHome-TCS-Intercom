@@ -64,15 +64,27 @@ namespace esphome
 
 
 
-            char h[32];
+            /*char h[32];
             uint32_t field1_1 = 0;
             esp_efuse_read_field_blob(ESP_EFUSE_USER_DATA, &field1_1, 8);
             sprintf(h, "%08X ", field1_1);
 
-
-            
             ESP_LOGW(TAG, "User Data:");
             ESP_LOGW(TAG, h);
+            ESP_LOG(TAG, h);*/
+
+
+            uint8_t ver[3];
+
+            uint32_t value;
+            esp_efuse_read_block(ESP_EFUSE_BLK3, &value);
+            ver[0] = value >> 0;
+            ver[1] = value >> 8;
+            ver[2] = value >> 16;
+
+            ESP_LOGI(ver[0]);
+            ESP_LOGI(ver[1]);
+            ESP_LOGI(ver[2]);
 
             /*har h[10];
             for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
