@@ -62,12 +62,11 @@ namespace esphome
             LOG_TEXT_SENSOR(TAG, "Bus Command", this->bus_command_);
 
 
-            char h[10];
-            for(int32_t block3Address=0; block3Address<=4; block3Address+=1)
-            {
-                uint32_t block = esp_efuse_read_reg(3, block3Address);
-                sprintf(h, "%08X ", block);
 
+            for (int32_t block3Address = EFUSE_BLK3_RDATA0_REG, i = 0; block3Address <= EFUSE_BLK3_RDATA7_REG; block3Address += 4, ++i)
+            {
+                uint32_t block = REG_GET_FIELD(block3Address, EFUSE_BLK3_DOUT0);
+                sprintf(h, "%08X ", block);
                 ESP_LOGCONFIG(TAG, h);
             }
         }
