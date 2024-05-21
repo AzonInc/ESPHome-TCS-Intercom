@@ -1,4 +1,5 @@
 #include "tcs_intercom.h"
+#include "soc/efuse_reg.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
 #include "esphome/components/api/custom_api_device.h"
@@ -58,6 +59,16 @@ namespace esphome
             }
 
             LOG_TEXT_SENSOR(TAG, "Bus Command", this->bus_command_);
+
+
+            char h[10];
+            for(int32_t block3Address=0; block3Address<=4; block3Address+=1)
+            {
+                uint32_t block = esp_efuse_read_reg(3, block3Address)
+                sprintf(h, "%08X ", block);
+
+                ESP_LOGCONFIG(TAG, h);
+            }
         }
 
         void TCSComponent::loop()
