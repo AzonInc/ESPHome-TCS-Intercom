@@ -16,7 +16,7 @@ namespace esphome
 
             protected:
                 binary_sensor::BinarySensor *incoming_command_sensor_{nullptr};
-                uint16_t command_;
+                uint32_t command_;
         };
 
     }  // namespace tcs_intercom

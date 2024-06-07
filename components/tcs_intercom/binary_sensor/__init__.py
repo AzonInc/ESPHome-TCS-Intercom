@@ -30,7 +30,10 @@ CONFIG_SCHEMA = cv.All(
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await binary_sensor.register_binary_sensor(var, config)
-    cg.add(var.set_command(config[CONF_COMMAND]))
+
+    command_template = await cg.templatable(config[CONF_COMMAND], [(cg.uint32_t, "x")], cg.uint32_t)
+    cg.add(var.set_command_template(command_template))
+
     cg.add(var.set_auto_off(config[CONF_AUTO_OFF]))
     tcs_intercom = await cg.get_variable(config[CONF_TCS_ID])
     cg.add(tcs_intercom.register_listener(var))
