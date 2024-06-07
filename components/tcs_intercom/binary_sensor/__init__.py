@@ -31,7 +31,7 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await binary_sensor.register_binary_sensor(var, config)
 
-    command_template = await cg.templatable(config[CONF_COMMAND], [(cg.uint32_t, "x")], cg.uint32_t)
+    command_template = await cg.templatable(config[CONF_COMMAND], [(cg.uint32, "x")], cg.uint32)
     cg.add(var.set_command_template(command_template))
 
     cg.add(var.set_auto_off(config[CONF_AUTO_OFF]))
