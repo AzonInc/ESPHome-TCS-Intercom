@@ -255,7 +255,7 @@ namespace esphome
 
             for (auto &listener : listeners_)
             {
-                if (listener->command_ == command)
+                if (listener->command_value_ == command)
                 {
                     ESP_LOGD(TAG, "Binary sensor fired! %x", listener->command_value_);
                     listener->turn_on(&listener->timer_, listener->auto_off_);
