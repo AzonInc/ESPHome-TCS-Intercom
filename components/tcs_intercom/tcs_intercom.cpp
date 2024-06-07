@@ -87,6 +87,8 @@ namespace esphome
             uint32_t now_millis = millis();
             for (auto &listener : listeners_)
             { 
+                listener->command_value_ = listener->command_template_();
+
                 if (listener->timer_ && now_millis > listener->timer_)
                 {
                     listener->turn_off(&listener->timer_);

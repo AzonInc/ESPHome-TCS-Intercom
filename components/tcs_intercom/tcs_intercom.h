@@ -16,15 +16,13 @@ namespace esphome
         class TCSIntercomListener
         {
             public:
-                void set_command_template(std::function<uint32_t()> command_template) { command_template_ = command_template; }
+                void set_command(uint32_t command) { command_ = command; }
                 void set_auto_off(uint16_t auto_off) { this->auto_off_ = auto_off; }
 
                 virtual void turn_on(uint32_t *timer, uint16_t auto_off) {};
                 virtual void turn_off(uint32_t *timer) {};
 
-                std::function<uint32_t()> command_template_;
-                uint32_t command_value_{0};
-
+                uint32_t command_;
                 uint32_t timer_;
                 uint16_t auto_off_;
         };
