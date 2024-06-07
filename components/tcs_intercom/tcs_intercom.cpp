@@ -25,11 +25,8 @@ namespace esphome
         {
             ESP_LOGCONFIG(TAG, "Setting up TCS Intercom...");
 
-
-
-            
             #if defined(ESP32)
-            ESP_LOGI(TAG, "ESP32 detected");
+            ESP_LOGD(TAG, "Check for Doorman Hardware Revision");
 
             // Doorman Hardware Revision
             uint8_t ver[3];
@@ -39,11 +36,9 @@ namespace esphome
             ver[1] = value >> 8;
             ver[2] = value >> 16;
 
-            ESP_LOGI(TAG, "Version: %i.%i.%i", ver[0], ver[1], ver[2]);
-
             if(ver[0] > 0)
             {
-                ESP_LOGI(TAG, "PCB Version detected");
+                ESP_LOGI(TAG, "Doorman Hardware detected: V%i.%i.%i", ver[0], ver[1], ver[2]);
 
                 /*const gpio_num_t rx_pin = static_cast<gpio_num_t>(22);
                 const gpio_num_t tx_pin = static_cast<gpio_num_t>(23);
